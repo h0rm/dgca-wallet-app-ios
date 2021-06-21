@@ -81,7 +81,8 @@ class CertificateViewerVC: UIViewController {
     if isSaved {
       return dismiss(animated: true, completion: nil)
     }
-    saveCert()
+    saveCertWoTan()
+    
   }
 
   @IBAction
@@ -89,6 +90,20 @@ class CertificateViewerVC: UIViewController {
     dismiss(animated: true, completion: nil)
   }
 
+  func saveCertWoTan() {
+    guard let cert = self.hCert else {
+      return
+    }
+    LocalData.add(cert, with: "0000")
+    self.newCertAdded = true
+    self.showAlert(
+      title: l10n("tan.confirm.success.title"),
+      subtitle: l10n("tan.confirm.success.text")
+    ) { _ in
+        self.dismiss(animated: true, completion: nil)
+      }
+  }
+    
   func saveCert() {
     showInputDialog(
       title: l10n("tan.confirm.title"),
